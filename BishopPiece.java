@@ -13,29 +13,24 @@ public class BishopPiece extends ChessPiece {
         int curFile = position.getFile();
         int curRank = position.getRank();
 
-        for (int r = curRank + 1; r <= 8; r++) {
-            for (int f = curFile + 1; f <= 8; f++) {
-                if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, f, r)) break;
-            }
+        // North-East Moves
+        for (int i = 1; i <= 8; i++) {
+            if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, curFile + i, curRank + i)) break;
         }
 
-        for (int r = curRank - 1; r >= 1; r--) {
-            for (int f = curFile + 1; f <= 8; f++) {
-                if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, f, r)) break;
-            }
+        // South-East Moves
+        for (int i = 1; i <= 8; i++) {
+            if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, curFile + i, curRank - i)) break;
         }
 
-        for (int r = curRank + 1; r <= 8; r++) {
-            for (int f = curFile - 1; f >= 1; f--) {
-
-                if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, f, r)) break;
-            }
+        // South-West Moves
+        for (int i = 1; i <= 8; i++) {
+            if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, curFile - i, curRank - i)) break;
         }
 
-        for (int r = curRank - 1; r >= 1; r--) {
-            for (int f = curFile + 1; f <= 8; f++) {
-                if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, f, r)) break;
-            }
+        // North-West Moves
+        for (int i = 1; i <= 8; i++) {
+            if (!addMoveIfValidAndIndicateWhetherToContinue(moves, board, curFile - i, curRank + i)) break;
         }
 
         return moves;
