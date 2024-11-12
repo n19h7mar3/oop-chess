@@ -11,11 +11,12 @@ public class PawnPiece extends ChessPiece {
         int curFile = position.getFile();
 
         if(color == 'w'){
-            if(board.pieces[curRank+1][curFile] == null) {
+
+            if(!board.isThereAPiece(curRank+1,curFile)){
                 moves.add(new ChessPosition(curRank + 1, curFile));
             }
 
-            if(curRank == 2 && board.pieces[curRank+2][curFile] == null && board.pieces[curRank + 1][curFile] == null){
+            if(curRank == 2 && !board.isThereAPiece(curRank+2,curFile) && !board.isThereAPiece(curRank+1,curFile)){
                 moves.add(new ChessPosition(curRank+2,curFile));
             }
 
@@ -28,11 +29,11 @@ public class PawnPiece extends ChessPiece {
             }
 
         }else{
-            if(board.pieces[curRank-1][curFile] == null) {
+            if(!board.isThereAPiece(curRank-1, curFile)){
                 moves.add(new ChessPosition(curRank - 1, curFile));
             }
 
-            if(curRank == 7 && board.pieces[curRank-2][curFile] == null && board.pieces[curRank - 1][curFile] == null){
+            if(curRank == 7 && !board.isThereAPiece(curRank-2,curFile) && !board.isThereAPiece(curRank-1,curFile)){
                 moves.add(new ChessPosition(curRank-2,curFile));
             }
 
