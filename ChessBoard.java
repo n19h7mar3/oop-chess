@@ -6,6 +6,12 @@ class ChessBoard {
     ArrayList<ChessPiece> capturedByBlack = new ArrayList<>();
 
     boolean isAnyPieceOfSpecificColorAtPosition(ChessPosition position, char color) {
-        return false; // TODO implement this
+        if(pieces[8-position.getRank()][position.getFile()-1] != null && pieces[8-position.getRank()][position.getFile()-1].color == color){
+            return true;
+        }
+        return false;
+    }
+    boolean isThereAPiece(int rank, int file){
+        return pieces[8 - rank][file - 1] != null;
     }
 }
