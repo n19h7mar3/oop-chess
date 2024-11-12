@@ -5,11 +5,7 @@ class ChessBoard {
     ArrayList<ChessPiece> capturedByWhite = new ArrayList<>();
     ArrayList<ChessPiece> capturedByBlack = new ArrayList<>();
 
-    boolean isFriendlyPieceAtPostion(ChessPosition position, String myColor) {
-        return false; // TODO implement this
-    }
-
-    boolean isEnemyPieceAtPosition(ChessPosition position, String myColor) {
+    boolean isAnyPieceOfSpecificColorAtPosition(ChessPosition position, char color) {
         return false; // TODO implement this
     }
 }
