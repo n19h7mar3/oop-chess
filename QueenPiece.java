@@ -7,9 +7,10 @@ public class QueenPiece extends ChessPiece {
     }
 
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
-        ArrayList<ChessPosition> moves = new ArrayList<>();
+       
         RookPiece rook = new RookPiece(this.color, this.position);
-        moves.addAll(rook.getAllPossibleMoves(board));
+        ArrayList<ChessPosition> moves = new ArrayList<>(rook.getAllPossibleMoves(board));
+        
         BishopPiece bishop = new BishopPiece(this.color, this.position);
         moves.addAll(bishop.getAllPossibleMoves(board));
         
