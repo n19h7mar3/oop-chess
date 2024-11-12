@@ -4,7 +4,7 @@ public class KingPiece extends ChessPiece {
 
     KingPiece(char color, ChessPosition position)  {
         super(color, position);
-        this.pieceName = "king";
+        this.pieceType = "king";
     }
 
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
