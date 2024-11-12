@@ -4,7 +4,7 @@ public class KingPiece extends ChessPiece {
 
     KingPiece(char color, ChessPosition position)  {
         super(color, position);
-        this.pieceName = "king";
+        this.pieceType = "king";
     }
 
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
@@ -13,24 +13,16 @@ public class KingPiece extends ChessPiece {
         int curFile = position.getFile();
         int curRank = position.getRank();
 
-        for (int f= curFile-1; f = curFile+1; f++){
-            for(int r = curRank -1 ; r =curRank +1; r++){
+        for (int f= curFile-1; f <= curFile+1; f++){
+            for(int r = curRank -1 ; r <=curRank +1; r++){
                 ChessPosition thispos = new ChessPosition(f, r);
-                if(thispos = position){
+                if(thispos.equals (position)){
                     continue;
                 }
-                if( board.isFriendlyPieceAtPostion(thispos)){
-                    break;
-                }
-                if(board.isEnemyPieceAtPosition(thispos)){
-                    moves.add(thispos);
-                    break;
-                }
-                if(ChessPosition.isValidPosition(thispos)){
-                    moves.add(thispos);
+                if (addMoveIfValidAndIndicateWhetherToContinue(moves, board, f, r)) break;
                 }
             }
-        }
+        
  
         return moves;
     }
