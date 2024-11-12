@@ -4,14 +4,14 @@ public class KingPiece extends ChessPiece {
 
     KingPiece(char color, ChessPosition position)  {
         super(color, position);
-        this.pieceType = "king";
+        this.pieceName = "king";
     }
 
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
         ArrayList<ChessPosition> moves = new ArrayList<>();
 
-        char curFile = position.getFile();
-        char curRank = position.getRank();
+        int curFile = position.getFile();
+        int curRank = position.getRank();
 
         for (int f= curFile-1; f = curFile+1; f++){
             for(int r = curRank -1 ; r =curRank +1; r++){
