@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-
 public class BishopPiece extends ChessPiece {
 
     BishopPiece(char color, ChessPosition position) {
@@ -34,5 +33,10 @@ public class BishopPiece extends ChessPiece {
         }
 
         return moves;
+    }
+
+    @Override
+    public String toString() {
+        return (color == 'w') ? "♗" : "♝";
     }
 }

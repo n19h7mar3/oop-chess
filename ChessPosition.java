@@ -33,6 +33,6 @@ class ChessPosition {
     }
 
     public boolean equals(int file, int rank) {
-        return true; // TODO implement this
+        return (this.file == file && this.rank == rank);
     }
 }

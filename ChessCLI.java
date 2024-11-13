@@ -1,67 +1,25 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class ChessCLI {
-
-    private static final String[] chessIcons = {
-        "♚", "♛", "♜", "♝", "♞", "♟",
-        "♔", "♕", "♖", "♗", "♘", "♙"
-    };
-
-    public static void renderBoard(ChessBoard board) {
-        // Clear screen by pushing everything past the scroll view
-        for (int i = 0; i < 25; i++) System.out.println();
-
-        displayBoard(board);
-
+    public static void renderBoard(ChessBoard board){
+        for (int i = 0; i < 25; i++) {
+            System.out.println();
+        }
+        display(board);
         System.out.print("\nPieces Captured By White: ");
         System.out.println(board.capturedByWhite.toString());
         System.out.print("Pieces Captured By Black: ");
         System.out.println(board.capturedByBlack.toString());
     }
-
-    private static void displayBoard(ChessBoard board) {
-        for (int i = 0; i < 8; i++) {
-            System.out.println("\n  +-------+-------+-------+-------+-------+-------+-------+-------+");
-            System.out.print((8 - i) + " |");
-
-            for (int j = 0; j < 8; j++) {
-
-                if (board.pieces[i][j] == null) {
-                    System.out.print("       |");
-                    continue;
-                }
-
-                System.out.printf("   %s   |", getPieceIcon(board.pieces[i][j].pieceType, board.pieces[i][j].color));
-            }
+    public static void getUserMove(ChessBoard board, char color){
+        Scanner sc = new Scanner(System.in);
+        if(color == 'w'){
+            System.out.print("Enter white's move: ");
+        }else{
+            System.out.print("Enter black's move: ");
         }
-
-        System.out.println("\n  +-------+-------+-------+-------+-------+-------+-------+-------+");
-        System.out.println("      a       b       c       d       e       f       g       h");
-    }
-
-    private static String getPieceIcon(String type, char color) {
-        int index;
-        switch (type) {
-            case "king":   index = 0; break;
-            case "queen":  index = 1; break;
-            case "rook":   index = 2; break;
-            case "bishop": index = 3; break;
-            case "knight": index = 4; break;
-            case "pawn":   index = 5; break;
-
-            default:
-                throw new IllegalArgumentException("ChessCLI: Invalid pieceType specified.");
-        }
-
-        if (color == 'b') index += 6;
-        return chessIcons[index];
-    }
-
-    public static void getUserMove(ChessBoard board, char color) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.printf("[%s] Your move: ", (color == 'w') ? "white" : "black");
-
         String input = sc.nextLine();
         if(input.matches("\\d{2} \\d{2}")){
 
@@ -80,7 +38,7 @@ public class ChessCLI {
             if (piece != null) {
                 if(piece.getColor() == color) {
                     ArrayList<ChessPosition> validMoves = piece.getAllPossibleMoves(board);
-                    if (validMoves.contains(nxtPosition)) {
+                    if (ifContains(validMoves,nxtPosition)) {
                         if (board.isThereAPiece(nextRank, nextFile)) {
                             ChessPiece capturedPiece = board.pieces[Helpers.rankToRow(nextRank)][Helpers.fileToColumn(nextFile)];
                             if (board.pieces[Helpers.rankToRow(nextRank)][Helpers.fileToColumn(nextFile)].color == 'w') {
@@ -111,5 +69,56 @@ public class ChessCLI {
             System.out.println("ERROR 404: Kindly enter in a format like (\"12 34\")\nHere the starting 2 digits represent currentPos and the last 2 represent nextPos");
             getUserMove(board,color);
         }
+    }
+
+    public static void display(ChessBoard board){
+        System.out.println("  +-------+-------+-------+-------+-------+-------+-------+-------+");
+
+
+        for (int i = 0; i < 8; i++) {
+            System.out.print((8-i) + " |");
+
+            for (int j = 0; j < 8; j++) {
+                ChessPiece piece = board.pieces[i][j];
+                if (piece==null) {
+                    System.out.print("       ");
+                } else {
+                    System.out.print("   " + convertNameToIcon(piece.pieceType, piece.color)+ "   ");
+                }
+                System.out.print("|");
+            }
+
+            System.out.println("\n  +-------+-------+-------+-------+-------+-------+-------+-------+");
+
+        }
+
+        System.out.println("      1       2       3       4       5       6       7       8");
+
+    }
+
+    public static String convertNameToIcon(String name, char color){
+        String[] blackIcons = {"♚","♛","♜","♝","♞","♟"};
+        String[] whiteIcons = {"♔","♕","♖","♗","♘","♙"};
+        HashMap<String, Integer> pieceToIndex = new HashMap<>();
+        pieceToIndex.put("king", 0);
+        pieceToIndex.put("queen", 1);
+        pieceToIndex.put("rook", 2);
+        pieceToIndex.put("bishop", 3);
+        pieceToIndex.put("knight", 4);
+        pieceToIndex.put("pawn", 5);
+        int index = pieceToIndex.get(name);
+        if(color == 'w'){
+            return whiteIcons[index];
+        }else{
+            return blackIcons[index];
+        }
+    }
+    public static boolean ifContains(ArrayList<ChessPosition> moves, ChessPosition nxtPosition){
+        for (ChessPosition move : moves) {
+            if (move.getRank() == nxtPosition.getRank() && move.getFile() == nxtPosition.getFile()) {
+                return true;
+            }
+        }
+        return false;
     }
 }

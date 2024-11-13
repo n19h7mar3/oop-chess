@@ -29,4 +29,9 @@ public class KnightPiece extends ChessPiece {
 
         return moves;
     }
+
+    @Override
+    public String toString() {
+        return (color == 'w') ? "♘" : "♞";
+    }
 }

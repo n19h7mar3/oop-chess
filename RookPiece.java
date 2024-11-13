@@ -1,13 +1,9 @@
 import java.util.ArrayList;
-
 public class RookPiece extends ChessPiece {
-
     RookPiece(char color, ChessPosition position)  {
         super(color, position);
         this.pieceType = "rook";
     }
-
-    @Override
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
         ArrayList<ChessPosition> moves = new ArrayList<>();
 
@@ -35,5 +31,10 @@ public class RookPiece extends ChessPiece {
         }
 
         return moves;
+    }
+
+    @Override
+    public String toString() {
+        return (color == 'w') ? "♖" : "♜";
     }
 }
