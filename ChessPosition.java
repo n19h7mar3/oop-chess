@@ -31,4 +31,8 @@ class ChessPosition {
     public boolean equals(Object obj) {
         return true; // TODO implement this
     }
+
+    public boolean equals(int file, int rank) {
+        return true; // TODO implement this
+    }
 }
