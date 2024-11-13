@@ -7,6 +7,7 @@ public class RookPiece extends ChessPiece {
         this.pieceType = "rook";
     }
 
+    @Override
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
         ArrayList<ChessPosition> moves = new ArrayList<>();
 
