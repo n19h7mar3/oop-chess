@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ChessCLI {
@@ -57,17 +58,58 @@ public class ChessCLI {
         return chessIcons[index];
     }
 
-    public static void getUserMove(char color){
-        Scanner sc = new Scanner(System.in);
-        if(color == 'w'){
-            System.out.print("Enter white's move: ");
-        }else{
-            System.out.print("Enter black's move");
-        }
+    public static void getUserMove(ChessBoard board, char color) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.printf("[%s] Your move: ", (color == 'w') ? "white" : "black");
+
         String input = sc.nextLine();
-        char currentRank = input.charAt(0);
-        char currentField = input.charAt(1);
-        char nextRank = input.charAt(3);
-        char nextField = input.charAt(4);
+        if(input.matches("\\d{2} \\d{2}")){
+
+            int currentRank = Character.getNumericValue(input.charAt(0));
+            int currentFile = Character.getNumericValue(input.charAt(1));
+            int nextRank = Character.getNumericValue(input.charAt(3));
+            int nextFile = Character.getNumericValue(input.charAt(4));
+
+            if(!ChessPosition.isValidPosition(currentFile,currentRank) || !ChessPosition.isValidPosition(nextFile,nextRank)){
+                System.out.println("ERROR 404: Out Of Bound Input");
+                getUserMove(board,color);
+                return;
+            }
+            ChessPiece piece = board.pieces[Helpers.rankToRow(currentRank)][Helpers.fileToColumn(currentFile)];
+            ChessPosition nxtPosition = new ChessPosition(nextFile, nextRank);
+            if (piece != null) {
+                if(piece.getColor() == color) {
+                    ArrayList<ChessPosition> validMoves = piece.getAllPossibleMoves(board);
+                    if (validMoves.contains(nxtPosition)) {
+                        if (board.isThereAPiece(nextRank, nextFile)) {
+                            ChessPiece capturedPiece = board.pieces[Helpers.rankToRow(nextRank)][Helpers.fileToColumn(nextFile)];
+                            if (board.pieces[Helpers.rankToRow(nextRank)][Helpers.fileToColumn(nextFile)].color == 'w') {
+                                board.capturedByBlack.add(capturedPiece);
+                            } else {
+                                board.capturedByWhite.add(capturedPiece);
+                            }
+                        }
+                        board.pieces[Helpers.rankToRow(currentRank)][Helpers.fileToColumn(currentFile)] = null;
+                        board.pieces[Helpers.rankToRow(nextRank)][Helpers.fileToColumn(nextFile)] = piece;
+                        piece.position = nxtPosition;
+                    } else {
+                        System.out.println("The next move entered is not a valid move");
+                        getUserMove(board, color);
+                    }
+                }
+                else{
+                    System.out.println("ERROR 404: Can't move someone's else piece");
+                    getUserMove(board,color);
+                }
+            }
+            else{
+                System.out.println("ERROR 404: No Piece On Curr Position");
+                getUserMove(board,color);
+            }
+        }
+        else{
+            System.out.println("ERROR 404: Kindly enter in a format like (\"12 34\")\nHere the starting 2 digits represent currentPos and the last 2 represent nextPos");
+            getUserMove(board,color);
+        }
     }
 }
