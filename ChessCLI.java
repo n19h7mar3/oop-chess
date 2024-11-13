@@ -20,11 +20,9 @@ public class ChessCLI {
     }
 
     private static void displayBoard(ChessBoard board) {
-        System.out.println("      a       b       c       d       e       f       g       h");
-        System.out.println("  +-------+-------+-------+-------+-------+-------+-------+-------+");
-
         for (int i = 0; i < 8; i++) {
-            System.out.print((i + 1) + " |");
+            System.out.println("\n  +-------+-------+-------+-------+-------+-------+-------+-------+");
+            System.out.print((8 - i) + " |");
 
             for (int j = 0; j < 8; j++) {
 
@@ -35,9 +33,10 @@ public class ChessCLI {
 
                 System.out.printf("   %s   |", getPieceIcon(board.pieces[i][j].pieceType, board.pieces[i][j].color));
             }
-
-            System.out.println("\n  +-------+-------+-------+-------+-------+-------+-------+-------+");
         }
+
+        System.out.println("\n  +-------+-------+-------+-------+-------+-------+-------+-------+");
+        System.out.println("      a       b       c       d       e       f       g       h");
     }
 
     private static String getPieceIcon(String type, char color) {
