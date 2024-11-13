@@ -7,6 +7,7 @@ public class QueenPiece extends ChessPiece {
         this.pieceType = "queen";
     }
 
+    @Override
     ArrayList<ChessPosition> getAllPossibleMoves(ChessBoard board) {
         RookPiece rook = new RookPiece(this.color, this.position);
         BishopPiece bishop = new BishopPiece(this.color, this.position);
