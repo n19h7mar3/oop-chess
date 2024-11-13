@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class ChessCLI {
     static ChessBoard board = new ChessBoard();
     public static void renderBoard(){
-        for (int i = 0; i < 50; i++) {
+        for (int i = 0; i < 25; i++) {
             System.out.println();
         }
         display();
@@ -26,6 +26,7 @@ public class ChessCLI {
         char nextRank = input.charAt(3);
         char nextField = input.charAt(4);
     }
+
     public static void display(){
         System.out.println("\t  1\t\t  2\t\t  3\t\t  4\t\t  5\t\t  6\t\t  7\t\t  8");
         System.out.println("   ---------------------------------------------------------------");
@@ -49,6 +50,7 @@ public class ChessCLI {
 
         System.out.println("\t  1\t\t  2\t\t  3\t\t  4\t\t  5\t\t  6\t\t  7\t\t  8");
     }
+
     public static String convertNameToIcon(String name, char color){
         String[] blackIcons = {"♚","♛","♜","♝","♞","♟"};
         String[] whiteIcons = {"♔","♕","♖","♗","♘","♙"};
